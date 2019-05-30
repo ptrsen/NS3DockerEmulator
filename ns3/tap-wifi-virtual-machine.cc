@@ -137,7 +137,7 @@ main (int argc, char *argv[])
 //  printf("TotalTime = %f\n", TotalTime);
 //  printf("gridRowSize = %d\n", gridRowSize);
 //  printf("distance = %f\n", distance);
-//  printf("scenarioSizeX = %f\n", scenarioSizeX);
+// printf("scenarioSizeX = %f\n", scenarioSizeX);
 //  printf("scenarioSizeY = %f\n", scenarioSizeY);
 //  printf("nodeSpeed = %d\n", nodeSpeed);
 //  printf("nodePause = %d\n", nodePause);
