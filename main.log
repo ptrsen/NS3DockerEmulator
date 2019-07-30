@@ -1,0 +1,20 @@
+2019/07/30 04:34:25.826664 main.go:214 ▶ INFO 001 40217**** < Create Step  >
+2019/07/30 04:34:47.484509 main.go:265 ▶ INFO 002 40217**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-07-30 04:34:47.4844 >
+2019/07/30 04:34:50.824478 main.go:273 ▶ INFO 003 40217**** < Dockerfile base image built correctly !!  >
+2019/07/30 04:34:51.354688 main.go:322 ▶ INFO 004 40217**** < Created Container ID: 61e38162aa3575457a45d0b51cd3eb2b59fa5ca819c1fa1aa654af4c3d4f26cc >
+2019/07/30 04:34:51.673338 main.go:333 ▶ INFO 005 40217**** < PID:40400 >
+2019/07/30 04:34:51.711934 main.go:342 ▶ INFO 006 40217**** < Created Bridge and Tap device >
+2019/07/30 04:34:51.78664 main.go:352 ▶ INFO 007 40217**** < Created veth pair >
+2019/07/30 04:34:52.57601 main.go:322 ▶ INFO 008 40217**** < Created Container ID: 7b0dc147222bcba3ba6a5d8885a8043168141e78ca20e86e5ae2b0c90a202441 >
+2019/07/30 04:34:52.634822 main.go:333 ▶ INFO 009 40217**** < PID:40542 >
+2019/07/30 04:34:52.677297 main.go:342 ▶ INFO 00a 40217**** < Created Bridge and Tap device >
+2019/07/30 04:34:52.749377 main.go:352 ▶ INFO 00b 40217**** < Created veth pair >
+2019/07/30 04:39:13.304305 main.go:219 ▶ INFO 001 41044**** < ns3 running background Step... >
+2019/07/30 04:39:13.304756 main.go:509 ▶ INFO 002 41044**** < About to start NS3 RUN >
+2019/07/30 04:41:22.691944 main.go:219 ▶ INFO 001 41088**** < ns3 running background Step... >
+2019/07/30 04:41:22.694449 main.go:509 ▶ INFO 002 41088**** < About to start NS3 RUN >
+2019/07/30 04:45:21.027059 main.go:226 ▶ INFO 001 41205**** < Destroy Step >
+2019/07/30 04:45:42.260112 main.go:417 ▶ INFO 002 41205**** < All deleted !!  >
+2019/07/30 04:45:42.292477 main.go:432 ▶ INFO 003 41205**** < Image deleted !!  >
+2019/07/30 04:45:50.773532 main.go:232 ▶ INFO 001 41526**** < Deleting conf and var directories ... >
+2019/07/30 04:45:50.777296 main.go:493 ▶ INFO 002 41526**** < Container logs and confs files erased >

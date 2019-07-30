@@ -106,7 +106,19 @@ python $BAKE_HOME/bake.py build
 echo -e "\n\n Verifying and compiling Ns3 in normal mode   ... \n" 
 cd source/ns-$ns3version
 ./waf
+
+# for Optimize mode
+echo -e "\n\n Recompoling NS3 in optimized mode  ... \n"
+./waf distclean
+./waf -d optimized configure --disable-examples --disable-tests --disable-python --enable-static --no-task-lines
+./waf
+
+echo -e "\n\n Running first Ns3 example  ... \n"
+cp examples/tutorial/first.cc scratch/
+./waf
+./waf --run scratch/first
 cd ~
+
 
 
 
