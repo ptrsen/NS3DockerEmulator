@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"fmt"
-	"github.com/ptrsen/Ns3Project/tools/cmd"
+	"github.com/ptrsen/NS3DockerEmulator/tools/cmd"
 	"os"
 	"strconv"
 	"time"

@@ -3,7 +3,7 @@ package ns3
 import (
 	"context"
 	"fmt"
-	"github.com/ptrsen/Ns3Project/tools/cmd"
+	"github.com/ptrsen/NS3DockerEmulator/tools/cmd"
 	"time"
 )
 
