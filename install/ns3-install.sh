@@ -19,7 +19,7 @@ sudo apt -y dist-upgrade
 echo -e "\n\n Remove old Ns3... \n" 
 #sudo rm -rf ~/Ns3
 
-# Install pre-reqs for Ns3 
+# install pre-reqs for Ns3
 echo -e "\n\n Installing pre-reqs for Ns3 ... \n" 
 sudo apt -y install gcc g++ 
 sudo apt -y install python python3 
@@ -75,7 +75,7 @@ sudo apt -y install uml-utilities
 
 
 
-# Install Ns3 with Bake
+# install Ns3 with Bake
 # https://www.nsnam.org/wiki/Installation#Installation
 
 echo -e "\n\n Setting Ns3 workspace ... \n" 

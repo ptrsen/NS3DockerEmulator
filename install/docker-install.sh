@@ -21,7 +21,7 @@ sudo rm -rf /var/lib/docker
 
 
 # SETUP REPOSITORY 
-# Install pre-reqs for Https in apt 
+# install pre-reqs for Https in apt
 echo -e "\n\n  Setting up Docker repository  ... \n"
 sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 

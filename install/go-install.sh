@@ -16,7 +16,7 @@ echo -e "\n\n Updating enviroment... \n"
 sudo apt update
 sudo apt -y dist-upgrade
 
-# Install pre-reqs
+# install pre-reqs
 echo -e "\n\n Installing Pre-requirements ... \n"
 sudo apt -y install python3 git curl wget
 
@@ -25,7 +25,7 @@ echo -e "\n\n Removing old golang ... \n"
 sudo rm -rf /usr/local/go
 sudo rm -rf $HOME/go
 
-# Install latest Golang version 
+# install latest Golang version
 echo -e "\n\n Installing golang $latest ... \n"
 # Download and extract golang , default home directory  path /usr/local/go 
 wget $url
