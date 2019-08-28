@@ -1,20 +1,24 @@
-2019/07/30 04:34:25.826664 main.go:214 ▶ INFO 001 40217**** < Create Step  >
-2019/07/30 04:34:47.484509 main.go:265 ▶ INFO 002 40217**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-07-30 04:34:47.4844 >
-2019/07/30 04:34:50.824478 main.go:273 ▶ INFO 003 40217**** < Dockerfile base image built correctly !!  >
-2019/07/30 04:34:51.354688 main.go:322 ▶ INFO 004 40217**** < Created Container ID: 61e38162aa3575457a45d0b51cd3eb2b59fa5ca819c1fa1aa654af4c3d4f26cc >
-2019/07/30 04:34:51.673338 main.go:333 ▶ INFO 005 40217**** < PID:40400 >
-2019/07/30 04:34:51.711934 main.go:342 ▶ INFO 006 40217**** < Created Bridge and Tap device >
-2019/07/30 04:34:51.78664 main.go:352 ▶ INFO 007 40217**** < Created veth pair >
-2019/07/30 04:34:52.57601 main.go:322 ▶ INFO 008 40217**** < Created Container ID: 7b0dc147222bcba3ba6a5d8885a8043168141e78ca20e86e5ae2b0c90a202441 >
-2019/07/30 04:34:52.634822 main.go:333 ▶ INFO 009 40217**** < PID:40542 >
-2019/07/30 04:34:52.677297 main.go:342 ▶ INFO 00a 40217**** < Created Bridge and Tap device >
-2019/07/30 04:34:52.749377 main.go:352 ▶ INFO 00b 40217**** < Created veth pair >
-2019/07/30 04:39:13.304305 main.go:219 ▶ INFO 001 41044**** < ns3 running background Step... >
-2019/07/30 04:39:13.304756 main.go:509 ▶ INFO 002 41044**** < About to start NS3 RUN >
-2019/07/30 04:41:22.691944 main.go:219 ▶ INFO 001 41088**** < ns3 running background Step... >
-2019/07/30 04:41:22.694449 main.go:509 ▶ INFO 002 41088**** < About to start NS3 RUN >
-2019/07/30 04:45:21.027059 main.go:226 ▶ INFO 001 41205**** < Destroy Step >
-2019/07/30 04:45:42.260112 main.go:417 ▶ INFO 002 41205**** < All deleted !!  >
-2019/07/30 04:45:42.292477 main.go:432 ▶ INFO 003 41205**** < Image deleted !!  >
-2019/07/30 04:45:50.773532 main.go:232 ▶ INFO 001 41526**** < Deleting conf and var directories ... >
-2019/07/30 04:45:50.777296 main.go:493 ▶ INFO 002 41526**** < Container logs and confs files erased >
+2019/08/27 16:12:50.890724 main.go:198 ▶ INFO 001 14753**** < Create Step  >
+2019/08/27 16:13:09.969896 main.go:268 ▶ INFO 002 14753**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-08-27 16:13:09.9698 >
+2019/08/27 16:13:23.54023 main.go:276 ▶ INFO 003 14753**** < Dockerfile base image built correctly !!  >
+2019/08/27 16:13:23.662002 main.go:316 ▶ INFO 004 14753**** < Docker network Id - 28b98da9ae6c10347a579309e14ba51826f2dc62d9f645bc93207d1183dff05d >
+2019/08/27 16:13:24.904012 main.go:324 ▶ INFO 005 14753**** < Created Container - Container ID: 0d0614d86c85ae0d83c23ffd967796a0aa824ed0c1dfbb990d4e327b3cce18f3 >
+2019/08/27 16:13:24.920472 main.go:331 ▶ INFO 006 14753**** < Created TAP Device -  >
+2019/08/27 16:13:24.967793 main.go:316 ▶ INFO 007 14753**** < Docker network Id - dba2e220f26f6409384ee39864f181261232e9cb4f057882be202fe3b3f5f207 >
+2019/08/27 16:13:26.025778 main.go:324 ▶ INFO 008 14753**** < Created Container - Container ID: 00e0818e444c305923fa828eae664536eaf9e0062dbb75800459b0222ae8dd47 >
+2019/08/27 16:13:26.035058 main.go:331 ▶ INFO 009 14753**** < Created TAP Device -  >
+2019/08/27 16:15:00.616381 main.go:210 ▶ INFO 001 15636**** < Destroy Step >
+2019/08/27 16:15:22.057406 main.go:383 ▶ INFO 002 15636**** < All deleted !!  >
+2019/08/27 16:53:11.524252 main.go:189 ▶ INFO 001 16446**** < Create Step  >
+2019/08/27 16:53:45.436665 main.go:260 ▶ INFO 002 16446**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-08-27 16:53:45.4365 >
+2019/08/27 16:53:48.740161 main.go:268 ▶ INFO 003 16446**** < Dockerfile base image built correctly !!  >
+2019/08/27 16:53:48.809766 main.go:308 ▶ INFO 004 16446**** < Docker network Id - 78ec80a658a5b7f9e3f45b7e18eecf18e9cd2945735f73b29e80eab8bdbcc828 >
+2019/08/27 16:53:59.376594 main.go:315 ▶ INFO 005 16446**** < Created Container - Container ID: 8447a81805178f888b7f34e0db967684a34378c4231782b3b53ea203f29b1823 >
+2019/08/27 16:53:59.401533 main.go:322 ▶ INFO 006 16446**** < Created TAP Device -  >
+2019/08/27 16:53:59.457271 main.go:308 ▶ INFO 007 16446**** < Docker network Id - 2725c9c2bff1b7f4146a99dbbcdda7ccead2c6f38aa28dbc4e4844826fd67d27 >
+2019/08/27 16:54:00.591096 main.go:315 ▶ INFO 008 16446**** < Created Container - Container ID: 252ee8b5824b43dfad29c480d4b4a03d896218eec1b9fa5dd1c2f866c10b25d2 >
+2019/08/27 16:54:00.600952 main.go:322 ▶ INFO 009 16446**** < Created TAP Device -  >
+2019/08/27 16:54:36.475375 main.go:202 ▶ INFO 001 17066**** < Destroy Step >
+2019/08/27 16:54:57.950353 main.go:374 ▶ INFO 002 17066**** < All deleted !!  >
+2019/08/27 16:55:50.590268 main.go:208 ▶ INFO 001 17439**** < Deleting conf and var directories ... >
+2019/08/27 16:55:50.59251 main.go:417 ▶ INFO 002 17439**** < Container logs and confs files erased >

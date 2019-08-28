@@ -15,9 +15,9 @@ FROM alpine:latest
 
 # install binary and remove cache
 RUN apk update \
-    && apk upgrade \
-    && apk add iperf3 \
-    && rm -rf /var/lib/apt/lists/*
+#    && apk upgrade \
+    && apk add iperf3
+#    && rm -rf /var/lib/apt/lists/*
 
 # Expose the default iperf3 server port
 #EXPOSE 5201

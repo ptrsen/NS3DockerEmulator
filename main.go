@@ -6,50 +6,22 @@ import (
 	"flag"
 	"fmt"
 	"github.com/docker/docker/api/types"
-	"github.com/ptrsen/NS3DockerEmulator/tools/cmd"
-	"github.com/ptrsen/NS3DockerEmulator/tools/docker"
-	"github.com/ptrsen/NS3DockerEmulator/tools/net"
-	"strings"
-	"time"
-
-	//--	"github.com/docker/docker/api/types"
-	//	"github.com/docker/docker/api/types/container"
-	//--	"github.com/docker/docker/api/types/filters"
-	//	"github.com/docker/docker/api/types/mount"
-	//	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/homedir"
 	"github.com/op/go-logging"
+	"github.com/ptrsen/NS3DockerEmulator/tools/cmd"
+	"github.com/ptrsen/NS3DockerEmulator/tools/docker"
+	"github.com/ptrsen/NS3DockerEmulator/tools/net"
 	"github.com/ptrsen/NS3DockerEmulator/tools/ns3"
-	//	"io"
-	//	"io/ioutil"
 	"os"
-	//	"time"
-	//	tools "github.com/ptrsen/Ns3Project/tools/cmd"
+	"strings"
+	"time"
 )
 
 
-/**********************************************************************************
-*	CheckError : Function just to check error
-***********************************************************************************/
 
-func CheckError(err error, msj string) {
-	if err  != nil {
-		fmt.Printf(msj + " %v\n", err)
-		log.Error(msj, err)
-		os.Exit(1)
-	}
-}
-
-/***********************************************************************************/
-
-
-
-
-
-
-
-
+/************************************************  VARIABLES  ***********************************************************/
+/************************************************************************************************************************/
 
 /**********************************************************************************
 *	Logger Configuration
@@ -86,6 +58,7 @@ var baseContainerNameMin = "myminimalbox"
 
 
 var dockerImagebasename = "emu"
+
 var nameList  = list.New()
 
 // Containers Logs
@@ -117,8 +90,10 @@ var nodePause = 1
 
 
 
-func main() {
+/************************************************  MAIN  ***********************************************************/
+/************************************************************************************************************************/
 
+func main() {
 
 	/**********************************************************************************
 	*	Backend Logger Configuration
@@ -169,13 +144,13 @@ func main() {
 	// Operation  -op [create, ns3, emulation, destroy, clean, none]
 	operationPtr := flag.String("op", "none", " operation to do  [string] {create, ns3, emulation, destroy, clean, none} -")
 
-	// Ns3 Scenario Size  -s 300
+	// Ns3 Scenario Size -s 300
 	sizePtr := flag.Int("s", 300, "size of the network scenario [int mts^2] - ")
-	// Ns3 Number of nodes  -n 0
+	// Ns3 Number of Nodes -n 0
 	numNodesPtr := flag.Int("n", 0, "number of nodes [int] - ")
-	// Ns3 Nodes Speed  -ns 5
+	// Ns3 Nodes Speed -ns 5
 	nodeSpeedPtr := flag.Int("ns", 5, "nodes speed [int mts/s] - ")
-	// Ns3 Nodes Pause  -np 1
+	// Ns3 Nodes Pause -np 1
 	nodePausePtr := flag.Int("np", 1, "nodes pause [int s] - ")
 
 
@@ -187,13 +162,13 @@ func main() {
 	nodeSpeed = *nodeSpeedPtr
 	nodePause = *nodePausePtr
 
-
 	// Generating name list for containers emu1...emuX
 	for i := 0; i < numberOfNodes; i++ {
 		nameList.PushBack( dockerImagebasename + fmt.Sprintf("%v", i+1) )
 	}
 
 	/***********************************************************************************/
+
 
 
 
@@ -220,7 +195,8 @@ func main() {
 		Ns3Run(ctx)
 
 	case "emulation":
-		fmt.Println("emulation Step ...")  // ...
+		fmt.Println("emulation Step ...")  //  next to work ...
+
 	case "destroy":
 		fmt.Println("-> Destroy Step")
 		log.Info("Destroy Step")
@@ -246,15 +222,34 @@ func main() {
 
 
 
+
+/************************************************  FUNCTIONS  ***********************************************************/
+/************************************************************************************************************************/
+
+
 /**********************************************************************************
-*	Create Step
+*	CheckError : Function just to check error
+***********************************************************************************/
+
+func CheckError(err error, msj string) {
+	if err  != nil {
+		fmt.Printf(msj + " %v\n", err)
+		log.Error(msj, err)
+		os.Exit(1)
+	}
+}
+
+/***********************************************************************************/
+
+
+/**********************************************************************************
+*	Create : Function for Create Step
 ***********************************************************************************/
 
 func Create(ctx context.Context, cli client.APIClient){
 
 	var err error
 	var msj string
-
 
    // Compile Ns3 Module in optimized mode
     err, msj = ns3.BuildModule(ctx, projectPath, ns3Path, ns3ModuleFileName)
@@ -273,26 +268,20 @@ func Create(ctx context.Context, cli client.APIClient){
 	log.Info(msj)
 
 
-	// Create local directory for containers logs, if not found
+	// Create local directory for containers logs
 	if _, err := os.Stat( logsLocalDirectory ); os.IsNotExist(err) {
 		err := os.MkdirAll( logsLocalDirectory ,0777)
 		CheckError(err,"Unable to create container/log directory")
 	}
 
-	// Create local directory for containers configurations, if not found
+	// Create local directory for containers configurations
 	if _, err := os.Stat( confLocalDirectory ); os.IsNotExist(err) {
 		err := os.MkdirAll( confLocalDirectory ,0777)
 		CheckError(err,"Unable to create container/conf directory")
 	}
 
-	// Create netns runtime directory if not found /var/run/netns
-	if _, err := os.Stat("/var/run/netns"); os.IsNotExist(err) {
-		err := os.MkdirAll("/var/run/netns",0777)
-		CheckError(err,"Unable to create /var/run/netns")
-	}
 
-
-    i := 0
+	// Creating All
 	for nodeName := nameList.Front(); nodeName != nil; nodeName = nodeName.Next(){
 		nodeNameStr:= fmt.Sprint(nodeName.Value)
 
@@ -308,71 +297,31 @@ func Create(ctx context.Context, cli client.APIClient){
 			CheckError(err,"Unable to create container/conf/emuX directory")
 		}
 
-
 		// Container Volume Path [localDirectory, ContainerDirectory]
 		logVolumeDirectory := [2]string{ projectPath + "/" + logsLocalDirectory, logsContainerDirectory}  // logs
 		confVolumeDirectory := [2]string{ projectPath + "/" + confLocalDirectory, confContainerDirectory} // Conf
 
-		// Create Docker container
-		err, msj := docker.CreateContainer(ctx, cli, nodeNameStr, baseContainerNameMin, "none", logVolumeDirectory, confVolumeDirectory)
+		// Create Docker Network
+		err, msj := docker.CreateDockerNetwork(ctx,cli, "br-"+ nodeNameStr)
 		CheckError(err, msj)
-
-		msj = "Created "+ msj
 		fmt.Println(msj)
 		log.Info(msj)
 
-
-
-
-		// Getting Docker Pid
-		err, containerPid:=	cmd.ExecCommandOutput(ctx,"/usr/bin","./docker","inspect","-f", "'{{ .State.Pid }}'", nodeNameStr)
-		CheckError(err, "Unable to get container pid")
-
-		msj = "PID:"+ containerPid
-		fmt.Println(msj)
-		log.Info(msj)
-
-
-		// Create Linux bridge with attached TAP device for NS3
-		err, msj = net.CreateBridgeTAP(ctx, nodeNameStr)
+		// Create Docker Container
+		err, msj = docker.CreateContainer(ctx, cli, nodeNameStr, baseContainerNameMin, "br-"+ nodeNameStr, logVolumeDirectory, confVolumeDirectory)
 		CheckError(err, msj)
-
-		msj = "Created Bridge and Tap device"
+		msj = "Created Container - "+ msj
 		fmt.Println(msj)
 		log.Info(msj)
 
-
-		// Create veth pair
-        err, msj = net.CreateVeth(ctx, nodeNameStr, containerPid, i)
-        CheckError(err, msj)
-
-        i = i + 1
-        msj = "Created veth pair"
+		// Create Tap Device and Attach to Docker Network
+        err, msj = net.CreateTAP(ctx,"tap-"+ nodeNameStr, "br-"+ nodeNameStr)
+		CheckError(err, msj)
+		msj = "Created TAP Device - "+ msj
 		fmt.Println(msj)
 		log.Info(msj)
 
-
-		/*
-
-		// Create Linux bridge with attached Tap interface for Ns3
-		createBridgeTAP(ctx,SnodeName)
-
-
-		// Creating Bridges and TUN/TAP interface
-	//bien --> createDockerNetwork(ctx, cli, SnodeName, dockerBridgebasename + SnodeName, fmt.Sprint(SnodeName[3:4]))
-		// Creating Docker Containers and Veth
-		//createDockerContainer(ctx, cli, SnodeName, dockerBridgebasename + SnodeName, fmt.Sprint(SnodeName[3:4]))
-
-
-	*/
 	}
-
-
-	//createDockerContainer(ctx, cli,"emu1","br1","0")  // <- just one
-
-
-//	fmt.Print("Containers created !! \n")
-//	log.Info("Containers created !! \n")
 
 
 }
@@ -380,18 +329,17 @@ func Create(ctx context.Context, cli client.APIClient){
 
 
 
-
 /**********************************************************************************
-*	Destroy Step
+*	Destroy : Function to Destroy Step
 ***********************************************************************************/
 
 func Destroy (ctx context.Context, cli client.APIClient){
 
-	// List Containers
+	// Getting a Containers list
 	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
 	CheckError(err,"unable to list  all docker containers")
 
-	// Deleting all Containers
+	// Deleting all Containers , Networks and TAP interfaces
 	for _, ctainer := range containers {
 	  nameContainer := ctainer.Names[0][1:]
 	  if  strings.Contains( nameContainer,"emu" ){
@@ -405,32 +353,25 @@ func Destroy (ctx context.Context, cli client.APIClient){
 		  err = cli.ContainerRemove(ctx, nameContainer, removeOptions)
 		  CheckError(err,"Error removing container")
 
-		  // Deleting Bridge and Tap device
-		  err, msj := net.DeleteBridgeTAP(ctx, nameContainer)
+		  // Deleting Tap device
+		  err, msj := net.DeleteTAP(ctx, "tap-" + nameContainer)
 		  CheckError(err, msj)
+
+		  // Deleting Networks
+		  err = cli.NetworkRemove(ctx, "br-" + nameContainer)
+		  CheckError(err,"Unable to delete network ..." )
 
 	  }
 
 	}
-
-	fmt.Println("All deleted !! ")
-	log.Info("All deleted !! ")
-
-
-
-    // Erase Netns folder
-	err = cmd.ExecCommand(ctx, "/bin" ,"./rm","-rf", "/var/run/netns")
-	CheckError(err, "Unable to erase netns folder")
-
 
 	// Deleting base Image
 	removeImageOptions :=  types.ImageRemoveOptions{}  // Default
     _, err = cli.ImageRemove(ctx, baseContainerNameMin, removeImageOptions )
 	CheckError(err,"Error removing base image")
 
-	fmt.Println("Image deleted !! ")
-	log.Info("Image deleted !! ")
-
+	fmt.Println("All deleted !! ")
+	log.Info("All deleted !! ")
 
 
 	/*
@@ -457,23 +398,6 @@ func Destroy (ctx context.Context, cli client.APIClient){
 	fmt.Println("Networks Deleted !!!")
 	log.Info("Networks Deleted !!!")
 
-
-	// Deleting TUN/TAP devices and Bridges
-	for nodeName := nameList.Front(); nodeName != nil; nodeName = nodeName.Next() {
-		SnodeName := fmt.Sprint(nodeName.Value)
-
-		// De-Active TUN/TAP interface >> sudo ip link set tap-emu1 down
-		// Delete TUN/TAP interface >> sudo ip tuntap del mode tap tap-emu1
-		execCommandCtx(ctx,"/sbin","./ip", "link", "set", linuxTapbasename + SnodeName, "up")
-		execCommandCtx(ctx,"/sbin","./ip", "tuntap", "del", "mode", "tap", linuxTapbasename + SnodeName)
-
-		// De-Active Bridge >> sudo ip link set br-emu1 down
-		// Delete bridge >> sudo ip link del br-emu1 type bridge
-		execCommandCtx(ctx,"/sbin","./ip", "link", "set", dockerBridgebasename + SnodeName, "down")
-		execCommandCtx(ctx,"/sbin","./ip", "link", "del", dockerBridgebasename + SnodeName, "type", "bridge")
-
-	}
-
 */
 }
 
@@ -482,7 +406,7 @@ func Destroy (ctx context.Context, cli client.APIClient){
 
 
 /**********************************************************************************
-*	Clean Step : Just to delete conf and var Directories
+*	Clean : Just to delete Containers conf and var Directories
 ***********************************************************************************/
 
 func Clean (ctx context.Context)  {
@@ -498,10 +422,8 @@ func Clean (ctx context.Context)  {
 
 
 
-
-
 /**********************************************************************************
-*	Ns3 Step
+*	NS3Run : Function to Run Ns3 scenario
 ***********************************************************************************/
 
 func Ns3Run (ctx context.Context) {
@@ -514,6 +436,7 @@ func Ns3Run (ctx context.Context) {
 	log.Info("Finished running NS3 in the background | Date now: " + time.Now().Format("2006-01-02 15:04:05.0000"))
 
 }
+
 /***********************************************************************************/
 
 

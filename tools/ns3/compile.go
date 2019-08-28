@@ -67,5 +67,4 @@ func RunBackground(ctx context.Context, ns3Path string, scenarioSize int, number
 
 }
 
-
 /**********************************************************************************/
