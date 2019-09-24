@@ -58,6 +58,8 @@ var baseContainerNameMin = "myminimalbox"
 
 
 var dockerImagebasename = "emu"
+var tapbasename = "tap-"
+var bridgebasename = "br-"
 
 var nameList  = list.New()
 
@@ -122,7 +124,7 @@ func main() {
 	homePath = homedir.Get()
 	projectPath, err = os.Getwd()
 	CheckError(err,"Project path not found ")
-	ns3Path = homePath + "/Ns3/bake/source/ns-3.29"
+	ns3Path = homePath + "/Ns3/bake/source/ns-3.30"  // Check installed version
 
 
     // Create context
@@ -141,8 +143,8 @@ func main() {
 	*	Command-Line Flags Parser
 	***********************************************************************************/
 
-	// Operation  -op [create, ns3, emulation, destroy, clean, none]
-	operationPtr := flag.String("op", "none", " operation to do  [string] {create, ns3, emulation, destroy, clean, none} -")
+	// Operation  -op [install, create, ns3, emulation, destroy, clean, none]
+	operationPtr := flag.String("op", "none", " operation to do  [string] {install, create, ns3, emulation, destroy, clean, none} -")
 
 	// Ns3 Scenario Size -s 300
 	sizePtr := flag.Int("s", 300, "size of the network scenario [int mts^2] - ")
@@ -177,6 +179,7 @@ func main() {
 	***********************************************************************************/
 
 	// commands
+	// sudo ./main -op=install
 	// sudo ./main -op=create -n=2 -s=10
 	// sudo ./main -op=destroy -n=2 -s=10
 	// sudo ./main -op=clean -n=2 -s=10
@@ -184,15 +187,22 @@ func main() {
 	// sudo ./main -op=emulation -n=2 -s=10  // not yet
 
 	switch operation := *operationPtr; operation {
+	case "install":
+		fmt.Println("-> Install Step ")
+		log.Info("Install Step ")
+		Install(ctx)
+
 	case "create":
 		fmt.Println("-> Create Step ")
 		log.Info("Create Step ")
 		Create(ctx,cli)
+		log.Info("All Setup , ready to run NS3 !!!")
 
 	case "ns3":
 		fmt.Println("-> Ns3 running in background ...")
 		log.Info("ns3 running background Step...")
 		Ns3Run(ctx)
+		log.Info("ns3 done !!! ")
 
 	case "emulation":
 		fmt.Println("emulation Step ...")  //  next to work ...
@@ -240,6 +250,36 @@ func CheckError(err error, msj string) {
 }
 
 /***********************************************************************************/
+
+
+/**********************************************************************************
+*	Install : Function for Install Step
+***********************************************************************************/
+
+func Install(ctx context.Context){
+
+	// Install Docker
+	err := cmd.ExecCommand(ctx, "/bin" ,"bash", projectPath + "/install/docker-install.sh")
+	CheckError(err, "Unable to install Docker")
+	fmt.Println("Docker installed ")
+	log.Info("Docker installed")
+
+	// Install drivers
+	err = cmd.ExecCommand(ctx, "/bin" ,"bash", projectPath + "/install/driver-install.sh", projectPath)
+	CheckError(err, "Unable to install L2Driver")
+	fmt.Println("Drivers installed ")
+	log.Info("Drivers installed")
+
+	// Install NS3
+	err = cmd.ExecCommand(ctx, "/bin" ,"bash","-c","source "+ projectPath + "/install/ns3-install.sh")
+	CheckError(err, "Unable to install NS3")
+	fmt.Println("NS3 installed ")
+	log.Info("NS3 installed")
+
+}
+
+
+
 
 
 /**********************************************************************************
@@ -302,27 +342,26 @@ func Create(ctx context.Context, cli client.APIClient){
 		confVolumeDirectory := [2]string{ projectPath + "/" + confLocalDirectory, confContainerDirectory} // Conf
 
 		// Create Docker Network
-		err, msj := docker.CreateDockerNetwork(ctx,cli, "br-"+ nodeNameStr)
+		err, msj := docker.CreateDockerNetwork(ctx, cli, bridgebasename + nodeNameStr)
 		CheckError(err, msj)
 		fmt.Println(msj)
 		log.Info(msj)
 
 		// Create Docker Container
-		err, msj = docker.CreateContainer(ctx, cli, nodeNameStr, baseContainerNameMin, "br-"+ nodeNameStr, logVolumeDirectory, confVolumeDirectory)
+		err, msj = docker.CreateContainer(ctx, cli, nodeNameStr, baseContainerNameMin, bridgebasename + nodeNameStr, logVolumeDirectory, confVolumeDirectory)
 		CheckError(err, msj)
 		msj = "Created Container - "+ msj
 		fmt.Println(msj)
 		log.Info(msj)
 
 		// Create Tap Device and Attach to Docker Network
-        err, msj = net.CreateTAP(ctx,"tap-"+ nodeNameStr, "br-"+ nodeNameStr)
+        err, msj = net.CreateTAP(ctx, tapbasename + nodeNameStr, bridgebasename + nodeNameStr)
 		CheckError(err, msj)
 		msj = "Created TAP Device - "+ msj
 		fmt.Println(msj)
 		log.Info(msj)
 
 	}
-
 
 }
 /***********************************************************************************/
@@ -354,11 +393,11 @@ func Destroy (ctx context.Context, cli client.APIClient){
 		  CheckError(err,"Error removing container")
 
 		  // Deleting Tap device
-		  err, msj := net.DeleteTAP(ctx, "tap-" + nameContainer)
+		  err, msj := net.DeleteTAP(ctx, tapbasename + nameContainer)
 		  CheckError(err, msj)
 
 		  // Deleting Networks
-		  err = cli.NetworkRemove(ctx, "br-" + nameContainer)
+		  err = cli.NetworkRemove(ctx, bridgebasename + nameContainer)
 		  CheckError(err,"Unable to delete network ..." )
 
 	  }

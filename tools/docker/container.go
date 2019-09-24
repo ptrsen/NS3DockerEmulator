@@ -4,6 +4,7 @@ import (
 	"archive/tar"
 	"bytes"
 	"context"
+	"encoding/binary"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/mount"
@@ -11,7 +12,9 @@ import (
 	"github.com/docker/docker/client"
 	"io"
 	"io/ioutil"
+	"net"
 	"os"
+	"strconv"
 )
 
 
@@ -90,6 +93,49 @@ func PullImage(ctx context.Context, cli client.APIClient, dockerFilePath string,
 /**********************************************************************************/
 
 
+/*********************************************************************************
+*	CreateDockerNetwork :
+*			Function to create Docker Network
+*			return error, output string
+**********************************************************************************/
+
+func CreateDockerNetwork (ctx context.Context, cli client.APIClient, networkName string) (er error,msj string){
+
+	// check later for "10.12.0.0/16"
+	// IPAM Driver Configuration
+	ipamConf := network.IPAM{
+		Driver: "static",
+		Config: []network.IPAMConfig{
+			{
+				Subnet:  "10.12.0.0/16",    // ipv4     <- check Int2ipv4 funcion
+			},
+			{
+				Subnet: "2001:db8::/64",    // global ipv6 - link ipv6 fe80::/64  <-  check Int2ipv6 function
+			},
+		},
+		Options: make(map[string]string, 0),
+	}
+
+	// Network options
+	networkCreateOptions := types.NetworkCreate{
+		Driver:         	"l2bridge",
+		EnableIPv6:     	true,
+		IPAM: 				&ipamConf,
+		Internal:   		false,
+		Attachable:     	true,
+		CheckDuplicate :	true,
+		Options: map[string]string{
+			"com.docker.network.bridge.name":   networkName,
+			"l2bridge.gateway": "10.12.255.254",  // ipv4 gateway  check   <- check Int2ipv4 funcion
+		},
+	}
+
+	respNetwork, err := cli.NetworkCreate(ctx, networkName , networkCreateOptions)
+
+	if err != nil { return err, "Error creating docker network L2bridge" }
+	return err, "Docker network Id - " + respNetwork.ID
+}
+
 
 /*********************************************************************************
 *	CreateContainer :
@@ -150,15 +196,17 @@ func CreateContainer(ctx context.Context, cli client.APIClient, containerName st
 
 	}
 
-	// check number of nodes for subnet for Ipv4
+
+	n, err := strconv.ParseUint(containerName[3:], 10, 64)  // number of nodes to uint64
+
 
 	// Network configuration
 	netConfig := &network.NetworkingConfig{ //}
 			EndpointsConfig: map[string]*network.EndpointSettings{
 				networkName : {  // },
 					IPAMConfig: &network.EndpointIPAMConfig{
-						IPv4Address: "10.12.0."+ containerName[3:],
-						IPv6Address: "2001:db8::"+ containerName[3:],
+						IPv4Address:  Int2ipv4(uint16(n)).String(),
+						IPv6Address:  Int2ipv6(n).String(),
 					},
 				},
 			},
@@ -181,51 +229,27 @@ func CreateContainer(ctx context.Context, cli client.APIClient, containerName st
 /**********************************************************************************/
 
 
-
-/*********************************************************************************
-*	CreateDockerNetwork :
-*			Function to create Docker Network
-*			return error, output string
-**********************************************************************************/
-
-func CreateDockerNetwork (ctx context.Context, cli client.APIClient, networkName string) (er error,msj string){
-
-	// check later for "10.12.0.0/16"
-		// IPAM Driver Configuration
-		ipamConf := network.IPAM{
-			Driver: "static",
-			Config: []network.IPAMConfig{
-				{
-					Subnet:  	"10.12.0.0/24",
-					//Gateway: 	"10.12."+ tools +".1", // ->
-					//IPRange: 	"172.28.5.0/24", // -> ipv4 take first  172.28.5.0 ,
-					//AuxAddress: map[string]string{},
-				},
-				{
-					Subnet: "2001:db8::/64", // -> global ipv6 - link ipv6 fe80::42:acff:fe1c:500/64
-				},
-			},
-			Options: make(map[string]string, 0),
-		}
-
-		// Network options
-		networkCreateOptions := types.NetworkCreate{
-			Driver:         	"l2bridge",
-			EnableIPv6:     	true,
-			IPAM: 				&ipamConf,
-			Internal:   		false,
-			Attachable:     	true,
-			CheckDuplicate :	true,
-			Options: map[string]string{
-				"com.docker.network.bridge.name":   networkName,
-				"l2bridge.gateway": "10.12.0.254",
-			},
-		}
-
-		respNetwork, err := cli.NetworkCreate(ctx, networkName , networkCreateOptions)
-
-	    if err != nil { return err, "Error creating docker network L2bridge" }
-	    return err, "Docker network Id - " + respNetwork.ID
+func Int2ipv4(lo uint16) net.IP {
+	ip := make(net.IP, net.IPv4len)  	 //  ipv4 -> 4 bytes (32 bits)  10.12.0.0/16
+	ip[0] = 10                           //  10 -> 10.0.0.0
+	ip[1] = 12							 //	 12 -> 10.12.0.0
+	binary.BigEndian.PutUint16(ip[2:], lo)   //  Max hosts [2^16 -2]  -> broadcast addr 10.12.255.255 , Default Gateway  10.12.255.254
+	return ip
 }
+
+func Int2ipv6(lo uint64) net.IP {
+	ip := make(net.IP, net.IPv6len)  	// ipv4 -> 16 bytes (128 bits)  2001:db8::0/64
+	ip[0]= 32							//  0x20 -> 2000::0
+	ip[1]= 1                            //  0x01 -> 2001::0
+	ip[2]= 13							//  0x0d -> 2001:0d::0
+	ip[3]= 184 							//  0xb8 -> 2001:db8::0
+	ip[4]= 0
+	ip[5]= 0
+	ip[6]= 0
+	ip[7]= 0
+	binary.BigEndian.PutUint64(ip[8:],lo)  //  Max hosts [2^64]
+	return ip
+}
+
 
 

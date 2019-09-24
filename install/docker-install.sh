@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# This script install latest docker version , v18.09.7
+# This script install latest docker version , (v18.09.7)
 # https://docs.docker.com/install/linux/docker-ce/ubuntu/
 # Execute: bash docker-install.sh 
 
 # Update enviroment
-cd ~
+cd ~  || exit
 echo -e "\n\n Updating enviroment... \n" 
 sudo apt update
 sudo apt -y dist-upgrade
@@ -51,6 +51,6 @@ sudo apt -y install docker-ce docker-ce-cli containerd.io
 echo -e "\n\n  Verifying  Docker  ... \n"
 sudo docker run hello-world
 sudo docker --version
-cd ~
+cd ~  || exit
 
 

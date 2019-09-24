@@ -22,3 +22,149 @@
 2019/08/27 16:54:57.950353 main.go:374 ▶ INFO 002 17066**** < All deleted !!  >
 2019/08/27 16:55:50.590268 main.go:208 ▶ INFO 001 17439**** < Deleting conf and var directories ... >
 2019/08/27 16:55:50.59251 main.go:417 ▶ INFO 002 17439**** < Container logs and confs files erased >
+2019/08/28 15:18:17.494005 main.go:192 ▶ INFO 001 21269**** < Install Step  >
+2019/08/28 15:18:28.430731 main.go:197 ▶ INFO 001 21277**** < Create Step  >
+2019/08/28 15:18:52.735235 main.go:276 ▶ INFO 002 21277**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-08-28 15:18:52.7351 >
+2019/08/28 15:18:57.202227 main.go:284 ▶ INFO 003 21277**** < Dockerfile base image built correctly !!  >
+2019/08/28 15:18:57.500451 main.go:324 ▶ INFO 004 21277**** < Docker network Id - f99f00062fb7b3426b49e8b79d82f01c4727fcfb9cbebcf50398b4d0cd3570a4 >
+2019/08/28 15:18:58.707572 main.go:331 ▶ INFO 005 21277**** < Created Container - Container ID: d8c7b1a01821dbfbe53f78f134da380cbdf536f751620b1b94925ff4082cd677 >
+2019/08/28 15:18:58.732068 main.go:338 ▶ INFO 006 21277**** < Created TAP Device -  >
+2019/08/28 15:18:58.846532 main.go:324 ▶ INFO 007 21277**** < Docker network Id - cab898fffa92ecbc6b4a4f1af4c19bcab67549d60edfded0342fc52d460962f7 >
+2019/08/28 15:18:59.905249 main.go:331 ▶ INFO 008 21277**** < Created Container - Container ID: afacc4b0b5d7a4663492b60483a495206513ffcaff5a4fb1073131a4d2aa4450 >
+2019/08/28 15:18:59.913218 main.go:338 ▶ INFO 009 21277**** < Created TAP Device -  >
+2019/08/28 15:23:52.640994 main.go:210 ▶ INFO 001 21966**** < Destroy Step >
+2019/08/28 15:24:14.031943 main.go:389 ▶ INFO 002 21966**** < All deleted !!  >
+2019/08/29 11:02:13.960877 main.go:192 ▶ INFO 001 23689**** < Install Step  >
+2019/08/29 11:02:13.961022 main.go:245 ▶ ERRO 002 23689**** < Unable to install NS3 exec: "source": executable file not found in $PATH >
+2019/08/29 11:03:41.218583 main.go:192 ▶ INFO 001 23775**** < Install Step  >
+2019/08/29 11:03:41.21889 main.go:245 ▶ ERRO 002 23775**** < Unable to install NS3 exec: "source": executable file not found in $PATH >
+2019/08/29 11:07:29.179278 main.go:192 ▶ INFO 001 23926**** < Install Step  >
+2019/08/29 11:07:29.181639 main.go:245 ▶ ERRO 002 23926**** < Unable to install NS3 fork/exec source /home/petersen/go/src/github.com/ptrsen/NS3DockerEmulator/install/ns3-install.sh: not a directory >
+2019/08/29 11:08:02.213235 main.go:192 ▶ INFO 001 23975**** < Install Step  >
+2019/08/29 11:08:02.213725 main.go:245 ▶ ERRO 002 23975**** < Unable to install NS3 fork/exec source /home/petersen/go/src/github.com/ptrsen/NS3DockerEmulator/install/ns3-install.sh: not a directory >
+2019/08/29 11:08:52.864359 main.go:192 ▶ INFO 001 24030**** < Install Step  >
+2019/08/29 11:08:52.864604 main.go:245 ▶ ERRO 002 24030**** < Unable to install NS3 exec: "-c": executable file not found in $PATH >
+2019/08/29 11:24:33.983121 main.go:192 ▶ INFO 001 24204**** < Install Step  >
+2019/08/29 12:31:01.5845 main.go:264 ▶ INFO 002 24204**** < NS3 installed >
+2019/08/29 14:26:42.14408 main.go:192 ▶ INFO 001 54649**** < Install Step  >
+2019/08/29 14:28:36.699223 main.go:272 ▶ INFO 002 54649**** < Docker installed >
+2019/09/04 18:17:02.239855 main.go:192 ▶ INFO 001 4000**** < Install Step  >
+2019/09/04 18:17:16.570721 main.go:279 ▶ INFO 002 4000**** < Driver installed >
+2019/09/04 18:18:59.706559 main.go:192 ▶ INFO 001 4413**** < Install Step  >
+2019/09/04 18:19:07.274003 main.go:279 ▶ INFO 002 4413**** < Driver installed >
+2019/09/04 18:21:28.152596 main.go:192 ▶ INFO 001 4848**** < Install Step  >
+2019/09/04 18:21:33.25209 main.go:279 ▶ INFO 002 4848**** < Driver installed >
+2019/09/04 18:21:58.881487 main.go:192 ▶ INFO 001 5190**** < Install Step  >
+2019/09/04 18:22:05.22354 main.go:279 ▶ INFO 002 5190**** < Driver installed >
+2019/09/04 18:24:48.11611 main.go:192 ▶ INFO 001 5671**** < Install Step  >
+2019/09/04 18:24:55.58124 main.go:279 ▶ INFO 002 5671**** < Driver installed >
+2019/09/04 18:25:26.084464 main.go:192 ▶ INFO 001 6055**** < Install Step  >
+2019/09/04 18:25:31.879676 main.go:279 ▶ INFO 002 6055**** < Driver installed >
+2019/09/10 15:35:46.232359 main.go:192 ▶ INFO 001 3536**** < Install Step  >
+2019/09/10 15:35:55.143183 main.go:279 ▶ INFO 002 3536**** < Driver installed >
+2019/09/10 15:48:01.482928 main.go:192 ▶ INFO 001 4062**** < Install Step  >
+2019/09/10 15:48:16.69957 main.go:279 ▶ INFO 002 4062**** < Driver installed >
+2019/09/10 16:00:41.716973 main.go:192 ▶ INFO 001 4773**** < Install Step  >
+2019/09/10 16:02:38.715987 main.go:263 ▶ INFO 002 4773**** < Docker installed >
+2019/09/10 16:02:48.332669 main.go:269 ▶ INFO 003 4773**** < Drivers installed >
+2019/09/10 16:33:36.21859 main.go:197 ▶ INFO 001 9174**** < Create Step  >
+2019/09/10 16:35:04.018689 main.go:298 ▶ INFO 002 9174**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-09-10 16:35:04.0128 >
+2019/09/10 16:35:24.189568 main.go:306 ▶ INFO 003 9174**** < Dockerfile base image built correctly !!  >
+2019/09/10 16:35:24.402826 main.go:346 ▶ INFO 004 9174**** < Docker network Id - 539a6f377e3da4373cc5c9d7895d67f0b287e87ce32ebf0b47cd308eccabcb7e >
+2019/09/10 16:35:25.763038 main.go:353 ▶ INFO 005 9174**** < Created Container - Container ID: 01b0adc441fb5cb270a5001e3cd5a1aa3ba2698fbc4ca3afcae8741b534a6b9b >
+2019/09/10 16:35:25.786381 main.go:360 ▶ INFO 006 9174**** < Created TAP Device -  >
+2019/09/10 16:35:25.84465 main.go:346 ▶ INFO 007 9174**** < Docker network Id - 2299ce1af4d48a1f2f98b77be19dac269c3ae243fe244c72a0ba9bf22fc6dae5 >
+2019/09/10 16:35:27.071254 main.go:353 ▶ INFO 008 9174**** < Created Container - Container ID: 2d2101bb86d061aed5c2f8c0c3adc36c5e2dd6b2f3319314d1a538da9c80a6b5 >
+2019/09/10 16:35:27.117523 main.go:360 ▶ INFO 009 9174**** < Created TAP Device -  >
+2019/09/10 16:47:29.407592 main.go:202 ▶ INFO 001 10110**** < ns3 running background Step... >
+2019/09/10 16:47:29.40778 main.go:468 ▶ INFO 002 10110**** < About to start NS3 RUN >
+2019/09/10 17:01:08.441367 main.go:210 ▶ INFO 001 10492**** < Destroy Step >
+2019/09/10 17:01:31.48737 main.go:411 ▶ INFO 002 10492**** < All deleted !!  >
+2019/09/11 09:50:21.134029 main.go:192 ▶ INFO 001 13214**** < Install Step  >
+2019/09/11 09:50:44.586945 main.go:269 ▶ INFO 002 13214**** < Drivers installed >
+2019/09/11 15:40:09.137345 main.go:192 ▶ INFO 001 17199**** < Install Step  >
+2019/09/11 15:42:16.608284 main.go:263 ▶ INFO 002 17199**** < Docker installed >
+2019/09/11 15:42:24.274974 main.go:269 ▶ INFO 003 17199**** < Drivers installed >
+2019/09/11 15:43:18.028859 main.go:245 ▶ ERRO 004 17199**** < Unable to install NS3 exit status 1 >
+2019/09/11 16:00:06.152664 main.go:192 ▶ INFO 001 23395**** < Install Step  >
+2019/09/11 16:01:17.113802 main.go:263 ▶ INFO 002 23395**** < Docker installed >
+2019/09/11 16:01:24.692835 main.go:269 ▶ INFO 003 23395**** < Drivers installed >
+2019/09/11 16:02:14.715102 main.go:245 ▶ ERRO 004 23395**** < Unable to install NS3 exit status 1 >
+2019/09/11 16:06:47.995252 main.go:192 ▶ INFO 001 29344**** < Install Step  >
+2019/09/11 16:07:53.074764 main.go:263 ▶ INFO 002 29344**** < Docker installed >
+2019/09/11 16:08:00.954384 main.go:269 ▶ INFO 003 29344**** < Drivers installed >
+2019/09/11 16:09:04.574939 main.go:245 ▶ ERRO 004 29344**** < Unable to install NS3 exit status 1 >
+2019/09/11 16:50:37.04262 main.go:192 ▶ INFO 001 35558**** < Install Step  >
+2019/09/11 16:51:51.284643 main.go:263 ▶ INFO 002 35558**** < Docker installed >
+2019/09/11 16:52:01.905796 main.go:269 ▶ INFO 003 35558**** < Drivers installed >
+2019/09/11 16:53:07.259598 main.go:245 ▶ ERRO 004 35558**** < Unable to install NS3 exit status 1 >
+2019/09/12 16:37:50.823682 main.go:192 ▶ INFO 001 43930**** < Install Step  >
+2019/09/12 16:39:16.001771 main.go:263 ▶ INFO 002 43930**** < Docker installed >
+2019/09/12 16:39:23.8505 main.go:269 ▶ INFO 003 43930**** < Drivers installed >
+2019/09/12 16:40:18.798265 main.go:245 ▶ ERRO 004 43930**** < Unable to install NS3 exit status 1 >
+2019/09/12 16:50:35.326336 main.go:192 ▶ INFO 001 52988**** < Install Step  >
+2019/09/12 16:51:41.893061 main.go:263 ▶ INFO 002 52988**** < Docker installed >
+2019/09/12 16:51:50.046659 main.go:269 ▶ INFO 003 52988**** < Drivers installed >
+2019/09/12 16:52:43.662409 main.go:245 ▶ ERRO 004 52988**** < Unable to install NS3 exit status 1 >
+2019/09/12 17:02:19.812795 main.go:192 ▶ INFO 001 59002**** < Install Step  >
+2019/09/12 17:08:24.875179 main.go:192 ▶ INFO 001 60807**** < Install Step  >
+2019/09/12 17:56:52.314308 main.go:192 ▶ INFO 001 62083**** < Install Step  >
+2019/09/12 18:09:04.663476 main.go:192 ▶ INFO 001 62509**** < Install Step  >
+2019/09/12 18:09:34.621194 main.go:192 ▶ INFO 001 62808**** < Install Step  >
+2019/09/12 18:10:09.39104 main.go:192 ▶ INFO 001 62991**** < Install Step  >
+2019/09/12 18:19:35.41028 main.go:192 ▶ INFO 001 63289**** < Install Step  >
+2019/09/12 18:21:32.105335 main.go:192 ▶ INFO 001 63555**** < Install Step  >
+2019/09/12 18:21:59.867049 main.go:192 ▶ INFO 001 63811**** < Install Step  >
+2019/09/12 18:32:47.272965 main.go:192 ▶ INFO 001 64079**** < Install Step  >
+2019/09/12 18:39:56.837683 main.go:192 ▶ INFO 001 64597**** < Install Step  >
+2019/09/12 18:41:24.391715 main.go:192 ▶ INFO 001 64632**** < Install Step  >
+2019/09/12 21:00:08.804968 main.go:192 ▶ INFO 001 3391**** < Install Step  >
+2019/09/12 21:03:21.945658 main.go:192 ▶ INFO 001 3817**** < Install Step  >
+2019/09/12 21:05:07.671648 main.go:192 ▶ INFO 001 3915**** < Install Step  >
+2019/09/12 21:12:38.93325 main.go:192 ▶ INFO 001 4091**** < Install Step  >
+2019/09/12 21:17:12.839802 main.go:192 ▶ INFO 001 4223**** < Install Step  >
+2019/09/12 21:18:19.983863 main.go:192 ▶ INFO 001 4425**** < Install Step  >
+2019/09/12 21:19:33.090895 main.go:192 ▶ INFO 001 4489**** < Install Step  >
+2019/09/12 21:20:28.709763 main.go:192 ▶ INFO 001 4551**** < Install Step  >
+2019/09/12 21:25:23.271985 main.go:192 ▶ INFO 001 4632**** < Install Step  >
+2019/09/12 21:25:58.887108 main.go:192 ▶ INFO 001 4692**** < Install Step  >
+2019/09/12 21:26:28.771488 main.go:192 ▶ INFO 001 4753**** < Install Step  >
+2019/09/12 21:26:44.501057 main.go:192 ▶ INFO 001 4814**** < Install Step  >
+2019/09/12 21:28:02.714065 main.go:192 ▶ INFO 001 4897**** < Install Step  >
+2019/09/12 21:32:13.161217 main.go:192 ▶ INFO 001 5028**** < Install Step  >
+2019/09/12 21:32:30.853631 main.go:192 ▶ INFO 001 5048**** < Install Step  >
+2019/09/12 21:35:59.730746 main.go:192 ▶ INFO 001 5449**** < Install Step  >
+2019/09/12 21:36:11.156612 main.go:192 ▶ INFO 001 5470**** < Install Step  >
+2019/09/12 21:37:16.140911 main.go:192 ▶ INFO 001 5572**** < Install Step  >
+2019/09/12 21:40:41.151475 main.go:192 ▶ INFO 001 5911**** < Install Step  >
+2019/09/12 21:41:37.945295 main.go:192 ▶ INFO 001 6039**** < Install Step  >
+2019/09/12 21:43:02.944685 main.go:192 ▶ INFO 001 6325**** < Install Step  >
+2019/09/12 21:53:01.829799 main.go:192 ▶ INFO 001 6544**** < Install Step  >
+2019/09/12 21:54:49.278055 main.go:192 ▶ INFO 001 6674**** < Install Step  >
+2019/09/12 21:55:30.035771 main.go:192 ▶ INFO 001 6697**** < Install Step  >
+2019/09/12 21:57:12.666289 main.go:192 ▶ INFO 001 6957**** < Install Step  >
+2019/09/12 21:57:44.073897 main.go:192 ▶ INFO 001 7293**** < Install Step  >
+2019/09/12 22:07:14.916943 main.go:192 ▶ INFO 001 8066**** < Install Step  >
+2019/09/12 22:07:25.542574 main.go:192 ▶ INFO 001 8219**** < Install Step  >
+2019/09/12 23:54:39.568537 main.go:277 ▶ INFO 002 8219**** < NS3 installed >
+2019/09/24 11:40:02.056822 main.go:197 ▶ INFO 001 5370**** < Create Step  >
+2019/09/24 11:40:02.07316 main.go:245 ▶ ERRO 002 5370**** < Error copying module tap-wifi-virtual-machine.cc to Ns3/scratch directory path exit status 1 >
+2019/09/24 11:45:37.79723 main.go:197 ▶ INFO 001 5497**** < Create Step  >
+2019/09/24 11:49:41.27484 main.go:298 ▶ INFO 002 5497**** < ns3/tap-vm file up to date! & NS3 optimize build sucess!! | 2019-09-24 11:49:41.2598 >
+2019/09/24 11:50:02.504001 main.go:306 ▶ INFO 003 5497**** < Dockerfile base image built correctly !!  >
+2019/09/24 11:50:03.419807 main.go:346 ▶ INFO 004 5497**** < Docker network Id - 8cb5ae84ee1419a046aaa494a2d01356803a82edb90330c6e746bce8da8ac942 >
+2019/09/24 11:50:04.92008 main.go:353 ▶ INFO 005 5497**** < Created Container - Container ID: a824438af67e9bfcfa86e452fa0d35391e89719737c83e839d8a44f422b3dcbf >
+2019/09/24 11:50:04.960658 main.go:360 ▶ INFO 006 5497**** < Created TAP Device -  >
+2019/09/24 11:50:05.048337 main.go:346 ▶ INFO 007 5497**** < Docker network Id - 815c6c5d86fad65972abb8cf9a2483083be96e3f3b75173b5a786a9ef3dd4ff7 >
+2019/09/24 11:50:06.179409 main.go:353 ▶ INFO 008 5497**** < Created Container - Container ID: 200b1106ca4959fe123c9c9edd235cfb37a491b8407d304ea0ab416d28c19e03 >
+2019/09/24 11:50:06.185052 main.go:360 ▶ INFO 009 5497**** < Created TAP Device -  >
+2019/09/24 11:50:06.257071 main.go:346 ▶ INFO 00a 5497**** < Docker network Id - 29c884e43160cd0e4b589751c868373c289bceae8ef8482123ea1ae53c5e355d >
+2019/09/24 11:50:07.278229 main.go:353 ▶ INFO 00b 5497**** < Created Container - Container ID: b4c6717c7b3f12a2b9278b9bc75590f835e3d1bfff977415a68ca0b8e44f6002 >
+2019/09/24 11:50:07.290394 main.go:360 ▶ INFO 00c 5497**** < Created TAP Device -  >
+2019/09/24 12:55:32.941418 main.go:202 ▶ INFO 001 6974**** < ns3 running background Step... >
+2019/09/24 12:55:32.941524 main.go:468 ▶ INFO 002 6974**** < About to start NS3 RUN >
+2019/09/24 13:10:35.187915 main.go:473 ▶ INFO 003 6974**** < Finished running NS3 in the background | Date now: 2019-09-24 13:10:35.1879 >
+2019/09/24 13:34:41.697797 main.go:210 ▶ INFO 001 7371**** < Destroy Step >
+2019/09/24 13:35:15.910056 main.go:411 ▶ INFO 002 7371**** < All deleted !!  >
+2019/09/24 13:39:49.580278 main.go:216 ▶ INFO 001 7826**** < Deleting conf and var directories ... >
+2019/09/24 13:39:49.596546 main.go:454 ▶ INFO 002 7826**** < Container logs and confs files erased >

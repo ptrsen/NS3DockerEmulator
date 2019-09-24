@@ -1,26 +1,25 @@
 #!/bin/bash
 
-# This script install ns3, ns-3.29
+# This script install ns3 (ns-latest) (latest version)
 # https://www.nsnam.org/wiki/Installation#Ubuntu.2FDebian.2FMint
-# Source: source ns3-install.sh 
+# Source: source ns3-install.sh
 
+url="$(wget -qO- https://www.nsnam.org/release/ | grep -oP 'releases\/ns\-([0-9\-]+)\/.*latest'  | head -n 1 )"
+latest="$(echo "$url" | grep -oP 'ns\-[0-9\-]+' | grep -oP '[0-9\-]+' | sed 's/-//'| sed 's/-/./g' | head -c 4  )"
 
-ns3version=3.29
-
-# Update enviroment
-cd ~
+# Update enviroment~/.bashrc
+cd ~ || exit
 echo -e "\n\n Updating enviroment... \n" 
 sudo apt update 
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 
-
 # Remove old Ns3 files
 echo -e "\n\n Remove old Ns3... \n" 
-#sudo rm -rf ~/Ns3
+sudo rm -rf ~/Ns3
 
 # install pre-reqs for Ns3
-echo -e "\n\n Installing pre-reqs for Ns3 ... \n" 
+echo -e "\n\n Installing pre-reqs for Ns-$latest ... \n"
 sudo apt -y install gcc g++ 
 sudo apt -y install python python3 
 sudo apt -y install python-pip python3-pip 
@@ -78,46 +77,52 @@ sudo apt -y install uml-utilities
 # install Ns3 with Bake
 # https://www.nsnam.org/wiki/Installation#Installation
 
-echo -e "\n\n Setting Ns3 workspace ... \n" 
+echo -e "\n\n Setting Ns-$latest workspace ... \n"
 echo -e "\n\n Installing and Setting bake tool ... \n"
-cd ~
+cd ~ || exit
 mkdir Ns3
-cd Ns3
+cd Ns3 || exit
 git clone https://gitlab.com/nsnam/bake.git
-cd bake
+cd bake || exit
 
-echo "export BAKE_HOME=$PWD" >> ~/.bashrc
-echo "export PATH=$PATH:$BAKE_HOME:$BAKE_HOME/build/bin" >> ~/.bashrc
-echo "export PYTHONPATH=$PYTHONPATH:$BAKE_HOME:$BAKE_HOME/build/lib" >> ~/.bashrc
-source ~/.bashrc
+bakePath=$PWD
 
-echo -e "\n\n Verifying bake and missing packages to start Ns3 installation  ... \n" 
+{
+echo "export BAKE_HOME=$PWD"
+echo "export PATH=$PATH:$BAKE_HOME:$BAKE_HOME/build/bin"
+echo "export PYTHONPATH=$PYTHONPATH:$BAKE_HOME:$BAKE_HOME/build/lib"
+} >> ~/.bashrc
+
+
+. ~/.bashrc
+
+echo -e "\n\n Verifying bake and missing packages to start Ns-$latest installation  ... \n"
 
 # rm -rf bakefile.xml
 # python3 $BAKE_HOME/bake.py configure -e ns-$ns3version # none All in one version
-python $BAKE_HOME/bake.py configure -e ns-allinone-$ns3version
-python $BAKE_HOME/bake.py check
-python $BAKE_HOME/bake.py show
+python "$bakePath"/bake.py configure -e ns-allinone-"$latest"
+python "$bakePath"/bake.py check
+python "$bakePath"/bake.py show
 
-echo -e "\n\n Downloading and building Ns3   ... \n" 
-python $BAKE_HOME/bake.py download
-python $BAKE_HOME/bake.py build
+echo -e "\n\n Downloading and building Ns-$latest   ... \n"
+python "$bakePath"/bake.py download
+python "$bakePath"/bake.py build
 
-echo -e "\n\n Verifying and compiling Ns3 in normal mode   ... \n" 
-cd source/ns-$ns3version
+echo -e "\n\n Verifying and compiling Ns-$latest in normal mode   ... \n"
+cd source/ns-"$latest" || exit
 ./waf
 
 # for Optimize mode
-echo -e "\n\n Recompoling NS3 in optimized mode  ... \n"
+echo -e "\n\n Recompoling NS-$latest in optimized mode  ... \n"
 ./waf distclean
 ./waf -d optimized configure --disable-examples --disable-tests --disable-python --enable-static --no-task-lines
 ./waf
 
-echo -e "\n\n Running first Ns3 example  ... \n"
+echo -e "\n\n Running first Ns-$latest example  ... \n"
 cp examples/tutorial/first.cc scratch/
 ./waf
 ./waf --run scratch/first
-cd ~
+cd ~ || exit
 
 
 
