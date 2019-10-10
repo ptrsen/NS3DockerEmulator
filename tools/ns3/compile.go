@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/ptrsen/NS3DockerEmulator/tools/cmd"
+	"regexp"
+	"strings"
 	"time"
 )
 
@@ -68,3 +70,24 @@ func RunBackground(ctx context.Context, ns3Path string, scenarioSize int, number
 }
 
 /**********************************************************************************/
+
+
+/**********************************************************************************
+*	CheckNs3 : Function just to check ns3 installation folder
+***********************************************************************************/
+
+func CheckNs3(ctx context.Context, ns3Path string) (error, string) {
+
+	// check Ns3 installation
+	err, version := cmd.ExecCommandOutput(ctx, "/bin" ,"ls", ns3Path)
+	if err != nil { return err, "Unable to find ns3 installation" }
+
+	// Get Ns3  version
+	re := regexp.MustCompile(`\sns-[0-9].[0-9][0-9]\s`)
+	version = strings.TrimSpace(re.FindAllString(version, -1)[0])
+
+	ns3Path = ns3Path + "/" + version
+	return nil, ns3Path
+}
+
+/***********************************************************************************/

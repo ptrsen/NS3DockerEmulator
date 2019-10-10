@@ -120,15 +120,17 @@ func main() {
 	*	Initialization
 	***********************************************************************************/
 
-	// Paths
+	// Setting Paths
 	homePath = homedir.Get()
 	projectPath, err = os.Getwd()
 	CheckError(err,"Project path not found ")
-	ns3Path = homePath + "/Ns3/bake/source/ns-3.30"  // Check installed version
+
+	ns3Path = homePath + "/Ns3/bake/source"
 
 
     // Create context
 	ctx := context.Background()
+
 
 	// Create Docker client
 	cli, err := client.NewClientWithOpts(client.FromEnv)
@@ -144,7 +146,15 @@ func main() {
 	***********************************************************************************/
 
 	// Operation  -op [install, create, ns3, emulation, destroy, clean, none]
-	operationPtr := flag.String("op", "none", " operation to do  [string] {install, create, ns3, emulation, destroy, clean, none} -")
+	operationPtr := flag.String("op", "none", " operation to do  [string]  \n" +
+		"     install - Install docker and ns3 to run emulator \n" +
+		"     create -  Setup everything for network emulation \n" +
+		"     ns3 - Run ns3 network emulation \n" +
+		"     emulation -Iterates several emulations (not implemented yet) \n" +
+		"     destroy - Destroy everything \n" +
+		"     clean - Clean nodes conf and logs directories \n" +
+		"     ")
+
 
 	// Ns3 Scenario Size -s 300
 	sizePtr := flag.Int("s", 300, "size of the network scenario [int mts^2] - ")
@@ -180,10 +190,12 @@ func main() {
 
 	// commands
 	// sudo ./main -op=install
-	// sudo ./main -op=create -n=2 -s=10
-	// sudo ./main -op=destroy -n=2 -s=10
-	// sudo ./main -op=clean -n=2 -s=10
+	// sudo ./main -op=create -n=2 -s=10     // nodes 2, Scenario Size 10
 	// sudo ./main -op=ns3 -n=2 -s=10
+	// sudo ./main -op=destroy
+	// sudo ./main -op=clean
+
+
 	// sudo ./main -op=emulation -n=2 -s=10  // not yet
 
 	switch operation := *operationPtr; operation {
@@ -279,9 +291,6 @@ func Install(ctx context.Context){
 }
 
 
-
-
-
 /**********************************************************************************
 *	Create : Function for Create Step
 ***********************************************************************************/
@@ -290,6 +299,10 @@ func Create(ctx context.Context, cli client.APIClient){
 
 	var err error
 	var msj string
+
+	// Check ns3 installation
+	err, ns3Path = ns3.CheckNs3(ctx,ns3Path)
+	CheckError(err,ns3Path)
 
    // Compile Ns3 Module in optimized mode
     err, msj = ns3.BuildModule(ctx, projectPath, ns3Path, ns3ModuleFileName)
@@ -466,6 +479,10 @@ func Clean (ctx context.Context)  {
 ***********************************************************************************/
 
 func Ns3Run (ctx context.Context) {
+
+	/// Check ns3 installation
+	err, ns3Path := ns3.CheckNs3(ctx,ns3Path)
+	CheckError(err,ns3Path)
 
 	log.Info("About to start NS3 RUN")
 
