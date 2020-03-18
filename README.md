@@ -14,7 +14,7 @@
 
      		- Its possigle to enter every node env using (do pings , etc) 
 			 sudo docker exec -it emu1  bin/sh
-			- sudo docker exec -it emu2  bin/sh
+			 sudo docker exec -it emu2  bin/sh
 
  - Start Ns3 simulation ( ns3/tap-wifi-virtual-machine.cc) 
  	- sudo ./main -op=ns3 -n=5 -s=10
@@ -24,7 +24,7 @@
  	- sudo ./main -op=destroy
 
  - clean File volumes ( conf, logs ) for each node 
- - local path: container/log, container/cont , Node path: /app/log, /app/conf 
+ 	local path: container/log, container/cont , Node path: /app/log, /app/conf 
 	- sudo ./main -op=clean
 
 
