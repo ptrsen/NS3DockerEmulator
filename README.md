@@ -23,8 +23,8 @@
  - Destroy everthing 
  	- sudo ./main -op=destroy
 
- - clean File volumes ( conf, logs ) for each node 
- 	local path: container/log, container/cont , Node path: /app/log, /app/conf 
+ - clean File volumes ( conf, logs ) for each node:  
+ 	 local path: container/log, container/cont , Node path: /app/log, /app/conf 
 	- sudo ./main -op=clean
 
 
