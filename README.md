@@ -4,7 +4,7 @@
 
 
  - Dowload project
- git clone -b golang-porting https://github.com/ptrsen/NS3DockerEmulator.git
+ 	- git clone -b golang-porting https://github.com/ptrsen/NS3DockerEmulator.git
 
  - Installs needed things (Ns3, docker, etc) 
  sudo ./main -op=install
