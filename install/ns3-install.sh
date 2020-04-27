@@ -59,6 +59,8 @@ sudo apt -y install libclang-dev
 sudo apt -y install libgtk2.0-0 libgtk2.0-dev
 pip install cxxfilt
 pip3 install cxxfilt
+pip install distro
+pip3 install distro
 
 sudo apt -y install qt5-dev-tools 
 sudo apt -y install libqt5-dev
